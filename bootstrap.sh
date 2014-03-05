@@ -192,4 +192,3 @@ fi
 
 sudo service apache2 reload
 sudo service mysql reload
-sudo service php5-fpm reload
