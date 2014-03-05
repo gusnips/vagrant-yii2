@@ -1,7 +1,8 @@
 
-# Custom LAMP vagrant box
+# Yii2 advanced application vagrant box
   
 ## Dependencies
+[Vagrant](http://www.vagrantup.com/)
 Vagrant plugin [host-manager](https://github.com/smdahlen/vagrant-hostmanager )  
 To install type:  
 > vagrant plugin install vagrant-hostmanager  
@@ -18,7 +19,7 @@ To install type:
 
 ## What it does
 + creates a new mysql database and allow external access   
-+ install yii2 advanced template and replace default database values  
++ install yii2 advanced template. Replace default database values with configuration ones and change to use memcache as cache  
 + configure apache hostname for frontend and backend applications   
 
 ## How to use

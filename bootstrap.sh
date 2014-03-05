@@ -178,11 +178,14 @@ if [ ! -d "$folder" ]; then
 	# init project
 	php $folder/init --env=Development --overwrite=n
 	
-	# replace config files
-	sed -i "s/mysql:host=localhost;dbname=yii2advanced/mysql:host=localhost;dbname=$mysql_database/g" "$folder/common/config/main-local.php";
-	sed -i "s/'password' => '',/'password' => '$mysql_password',/g" "$folder/common/config/main-local.php";
-	sed -i "s/'username' => 'root',/'username' => '$mysql_username',/g" "$folder/common/config/main-local.php";
+	## Yii cache config. Now uses memcache
+	sed -i "s/'class' => 'yii\caching\FileCache',/'class' => 'yii\caching\MemCache',/g" "$folder/common/config/main.php";
 fi
+
+## Yii database config
+sed -i "s/mysql:host=localhost;dbname=yii2advanced/mysql:host=localhost;dbname=$mysql_database/g" "$folder/common/config/main-local.php";
+sed -i "s/'password' => '',/'password' => '$mysql_password',/g" "$folder/common/config/main-local.php";
+sed -i "s/'username' => 'root',/'username' => '$mysql_username',/g" "$folder/common/config/main-local.php";
 
 
 # ==================== FINISH IT =========================
