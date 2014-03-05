@@ -20,9 +20,11 @@
 ## How to use
 edit bootstrap.sh to change domain and password  
 edit your hosts file and add the line:  
->33.33.33.20 mydomain.dev  
+>33.33.33.20 mydomain.dev   
+
 to create a new domain run   
 >/var/www/bootstap.sh  
+
 and it will prompt to configure   
 
 # Defaults
