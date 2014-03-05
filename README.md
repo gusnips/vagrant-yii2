@@ -28,16 +28,16 @@ and it will prompt to configure
 # Defaults
 
 Domain to use  
-> domain="myapp.proj" 
+> domain="myapp.proj"   
 Port to use  
-> domain_port="80"
+> domain_port="80"  
 Domain to use in admin  
-> admin_domain="$domain"
+> admin_domain="$domain"  
 Port to use in admin  
-> admin_domain_port="2013"
+> admin_domain_port="2013"  
 MySQL password  
-> mysql_username="vagrant" 
+> mysql_username="vagrant"   
 MySQL password  
-> mysql_password="vagrant"
+> mysql_password="vagrant"  
 Database name   
-> mysql_database="myapp"
+> mysql_database="myapp"  
