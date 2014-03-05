@@ -2,7 +2,7 @@
 # Yii2 advanced application vagrant box
   
 ## Dependencies
-[Vagrant](http://www.vagrantup.com/)
+[Vagrant](http://www.vagrantup.com/)  
 Vagrant plugin [host-manager](https://github.com/smdahlen/vagrant-hostmanager )  
 To install type:  
 > vagrant plugin install vagrant-hostmanager  
@@ -44,6 +44,9 @@ Domain to use in admin
 
 Port to use in admin  
 > admin_domain_port="2013"  
+
+MySQL root password  
+> mysql_root_password="vagrant"   
 
 MySQL password  
 > mysql_username="myapp"   

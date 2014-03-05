@@ -10,12 +10,14 @@ domain_port="$2"
 admin_domain="$3"
 # Port to use in admin
 admin_domain_port="$4"
+# Mysql root password
+mysql_root_password="$5"
 # MySQL password
-mysql_username="$5"
+mysql_username="$6"
 # MySQL password
-mysql_password="$6"
+mysql_password="$7"
 # Database name 
-mysql_database="$7"
+mysql_database="$8"
 
 # Ask everything we need to know to setup the box
 # If no stdin avaliable, we use the configuration parameters above
@@ -24,6 +26,7 @@ if [ -t 0 ]; then
 	read -e -p "Port to use: " -i "$domain_port" domain_port
 	read -e -p "Domain to use in admin: " -i "$domain" admin_domain
 	read -e -p "Port to use in admin: " -i "$admin_domain_port" admin_domain_port
+	read -e -p "MySQL root password: " -i "$mysql_root_password" mysql_root_password
 	read -e -p "MySQL username: " -i "$mysql_username" mysql_username
 	read -e -p "MySQL password: " -i "$mysql_password" mysql_password
 	read -e -p "Database name: " -i "$mysql_database" mysql_database
@@ -63,8 +66,8 @@ if [ ! -t 0 ]; then
 	
 	# ------- MySQL -------
 	
-	echo mysql-server mysql-server/root_password select "$mysql_password" | debconf-set-selections
-	echo mysql-server mysql-server/root_password_again select "$mysql_password" | debconf-set-selections
+	echo mysql-server mysql-server/root_password select "$mysql_root_password" | debconf-set-selections
+	echo mysql-server mysql-server/root_password_again select "$mysql_root_password" | debconf-set-selections
 	sudo apt-get install -y mysql-server-5.5 
 	sudo apt-get install -y php5-mysqlnd
 	
@@ -155,9 +158,9 @@ sudo a2enconf "$domain"
 sudo service mysql start
 
 # create user and database
-mysql -uroot --password="$mysql_password" -e "CREATE SCHEMA IF NOT EXISTS $mysql_database DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
-mysql -uroot --password="$mysql_password" -e "GRANT ALL PRIVILEGES ON $mysql_database.* TO '$mysql_username'@'localhost' IDENTIFIED BY '$mysql_password' WITH GRANT OPTION;FLUSH PRIVILEGES;";
-mysql -uroot --password="$mysql_password" -e "GRANT ALL PRIVILEGES ON $mysql_database.* TO '$mysql_username'@'%' IDENTIFIED BY '$mysql_password' WITH GRANT OPTION;FLUSH PRIVILEGES;";
+mysql -uroot --password="$mysql_root_password" -e "CREATE SCHEMA IF NOT EXISTS $mysql_database DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+mysql -uroot --password="$mysql_root_password" -e "GRANT ALL PRIVILEGES ON $mysql_database.* TO '$mysql_username'@'localhost' IDENTIFIED BY '$mysql_password' WITH GRANT OPTION;";
+mysql -uroot --password="$mysql_root_password" -e "GRANT ALL PRIVILEGES ON $mysql_database.* TO '$mysql_username'@'%' IDENTIFIED BY '$mysql_password' WITH GRANT OPTION;";
 
 # give external access
 sed -i 's/bind-address    = 127.0.0.1/bind-address    = 0.0.0.0/g' /etc/mysql/my.cnf;
