@@ -9,6 +9,8 @@ domain_port="80"
 admin_domain="myapp.proj"
 # Port to use in admin
 admin_domain_port="2013"
+# MySQL root password
+mysql_root_password="vagrant"
 # MySQL password
 mysql_username="myapp" 
 # MySQL password
@@ -47,7 +49,7 @@ Vagrant.configure("2") do |config|
   # enable the bootstrap-script with arguments
   config.vm.provision "shell" do |s|
     s.path = "bootstrap.sh"
-    s.args   = [domain,domain_port,admin_domain,admin_domain_port,mysql_username,mysql_password,mysql_database]
+    s.args   = [domain,domain_port,admin_domain,admin_domain_port,mysql_root_password,mysql_username,mysql_password,mysql_database]
   end
 
 end
