@@ -23,7 +23,7 @@ To install type:
 
 ## How to use
 
-edit [Vagrantfile](https://github.com/gusnips/vagrant-yii2/blob/master/Vagrantfile) to change the [options](#defaults)   
+edit [Vagrantfile](https://github.com/gusnips/vagrant-yii2/blob/master/Vagrantfile) to change the [options](#options)   
 
 to create a new application run   
 >/var/www/bootstap.sh  
