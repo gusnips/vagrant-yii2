@@ -3,21 +3,19 @@
 # ==================== CONFIGURATION =========================
 
 # Domain to use
-domain="myapp.proj" 
+domain="$1"
 # Port to use
-domain_port="80"
+domain_port="$2"
 # Domain to use in admin
-admin_domain="$domain"
+admin_domain="$3"
 # Port to use in admin
-admin_domain_port="2013"
+admin_domain_port="$4"
 # MySQL password
-mysql_username="vagrant" 
+mysql_username="$5"
 # MySQL password
-mysql_password="vagrant"
+mysql_password="$6"
 # Database name 
-mysql_database="myapp"
-
-# ------ That's it. Stop editing ------
+mysql_database="$7"
 
 # Ask everything we need to know to setup the box
 # If no stdin avaliable, we use the configuration parameters above
@@ -191,9 +189,9 @@ fi
 
 # --- restart services using new config ---
 
-sudo service apache2 reload
-sudo service mysql reload
-sudo service php5-fpm reload
+sudo service apache2 restart
+sudo service mysql restart
+sudo service php5-fpm restart
 
 # install migrations 
 sudo php $folder/yii migrate up --interactive=0

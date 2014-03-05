@@ -1,7 +1,11 @@
 
 # Custom LAMP vagrant box
   
-  
+## Dependencies
+Vagrant plugin [host-manager](https://github.com/smdahlen/vagrant-hostmanager )  
+To install type:  
+> vagrant plugin install vagrant-hostmanager  
+
 ## Stack  
 + apache 2.4 mpm worker with fastcgi  
 + php 5.5 fpm  
@@ -18,16 +22,15 @@
 + configure apache hostname for frontend and backend applications   
 
 ## How to use
-edit bootstrap.sh to change domain and password  
-edit your hosts file and add the line:  
->33.33.33.20 mydomain.dev   
 
-to create a new domain run   
+edit [Vagrantfile](https://github.com/gusnips/vagrant-yii2/blob/master/Vagrantfile) to change the [options](#defaults)   
+
+to create a new application run   
 >/var/www/bootstap.sh  
 
 and it will prompt to configure   
 
-# Defaults
+## Options
 
 Domain to use  
 > domain="myapp.proj"   
