@@ -10,9 +10,9 @@ admin_domain="myapp.proj"
 # Port to use in admin
 admin_domain_port="2013"
 # MySQL password
-mysql_username="vagrant" 
+mysql_username="myapp" 
 # MySQL password
-mysql_password="vagrant"
+mysql_password="myapp-password"
 # Database name 
 mysql_database="myapp"
 
