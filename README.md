@@ -3,7 +3,7 @@
   
   
 ## Stack  
-+ apache 2.4 fastcgi  
++ apache 2.4 mpm worker with fastcgi  
 + php 5.5 fpm  
 + mysql 5.5  
 + composer  
