@@ -158,7 +158,8 @@ sudo service mysql start
 
 # create user and database
 mysql -uroot --password="$mysql_password" -e "CREATE SCHEMA IF NOT EXISTS $mysql_database DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
-mysql -uroot --password="$mysql_password" -e "GRANT ALL PRIVILEGES ON $mysql_database.* TO '$mysql_database'@'%' IDENTIFIED BY '$mysql_password' WITH GRANT OPTION;";
+mysql -uroot --password="$mysql_password" -e "GRANT ALL PRIVILEGES ON $mysql_database.* TO '$mysql_username'@'localhost' IDENTIFIED BY '$mysql_password' WITH GRANT OPTION;FLUSH PRIVILEGES;";
+mysql -uroot --password="$mysql_password" -e "GRANT ALL PRIVILEGES ON $mysql_database.* TO '$mysql_username'@'%' IDENTIFIED BY '$mysql_password' WITH GRANT OPTION;FLUSH PRIVILEGES;";
 
 # give external access
 sed -i 's/bind-address    = 127.0.0.1/bind-address    = 0.0.0.0/g' /etc/mysql/my.cnf;
@@ -192,3 +193,4 @@ fi
 
 sudo service apache2 reload
 sudo service mysql reload
+sudo service php5-fpm reload
