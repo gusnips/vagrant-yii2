@@ -29,15 +29,21 @@ and it will prompt to configure
 
 Domain to use  
 > domain="myapp.proj"   
+
 Port to use  
 > domain_port="80"  
+
 Domain to use in admin  
 > admin_domain="$domain"  
+
 Port to use in admin  
 > admin_domain_port="2013"  
+
 MySQL password  
 > mysql_username="vagrant"   
+
 MySQL password  
 > mysql_password="vagrant"  
+
 Database name   
 > mysql_database="myapp"  
