@@ -2,21 +2,21 @@
 ############## CONFIGURATION OPTIONS ################
 
 # Domain to use
-domain="myapp.proj" 
+domain="openwings.dev" 
 # Port to use
 domain_port="80"
 # Domain to use in admin
-admin_domain="myapp.proj"
+admin_domain="openwings.dev"
 # Port to use in admin
 admin_domain_port="2013"
 # MySQL root password
-mysql_root_password="vagrant"
+mysql_root_password="p4s$w0rd"
 # MySQL password
-mysql_username="myapp" 
+mysql_username="openwings" 
 # MySQL password
-mysql_password="myapp-password"
+mysql_password="p4s$w0rd"
 # Database name 
-mysql_database="myapp"
+mysql_database="openwings"
 
 ############## END OF CONFIGURATION - STOP EDITING ##############
 
@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
   config.hostmanager.manage_host        = true
   config.hostmanager.ignore_private_ip  = false
   config.hostmanager.include_offline    = true
-  config.hostmanager.aliases 			= ["www."+domain]
+  config.hostmanager.aliases 			= ["www."+domain,admin_domain]
 
   # enable the bootstrap-script with arguments
   config.vm.provision "shell" do |s|

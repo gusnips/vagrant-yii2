@@ -34,25 +34,25 @@ and it will prompt to configure
 ## Options
 
 Domain to use  
-> domain="myapp.proj"   
+>domain="openwings.dev"   
 
 Port to use  
-> domain_port="80"  
+>domain_port="80"  
 
 Domain to use in admin  
-> admin_domain="myapp.proj"  
+>admin_domain="openwings.dev"  
 
 Port to use in admin  
-> admin_domain_port="2013"  
+>admin_domain_port="2013"  
 
 MySQL root password  
-> mysql_root_password="vagrant"   
+> mysql_root_password="p4s$w0rd"  
 
-MySQL password  
-> mysql_username="myapp"   
+MySQL password
+>mysql_username="openwings"   
 
-MySQL password  
-> mysql_password="myapp-password"  
+MySQL password
+>mysql_password="p4s$w0rd"  
 
-Database name   
-> mysql_database="myapp"  
+Database name  
+>mysql_database="openwings"  
