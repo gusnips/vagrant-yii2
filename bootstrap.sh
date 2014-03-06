@@ -36,48 +36,46 @@ folder="/var/www/$domain"
 
 # ==================== INSTALLATION =========================
 
-# If first run, add new repositories and install everything
-if [ ! -t 0 ]; then
+# If no arguments, add new repositories and install everything
 
-	# update everything
-	sudo apt-get update 
-	
-	# ------- PPA's -------
-	
-	# utility to be able to use apt-add-repository
-	sudo apt-get install -y python-software-properties
-	# add ppa's
-	sudo apt-add-repository -y ppa:ondrej/apache2
-	sudo add-apt-repository -y ppa:ondrej/php5
-	# update list with new ppa's
-	sudo apt-get update
-	
-	
-	# ------- Apache2 -------
-	
-	sudo apt-get install -y apache2-mpm-worker
-	
-	# ------- PHP5 -------
-	
-	sudo apt-get install -y php5-common libapache2-mod-fastcgi php5-fpm php5-apcu php5-gd php5-mcrypt 
-	sudo apt-get install -y curl php5-curl  
-	sudo apt-get install -y memcached php5-memcache
-	
-	
-	# ------- MySQL -------
-	
-	echo mysql-server mysql-server/root_password select "$mysql_root_password" | debconf-set-selections
-	echo mysql-server mysql-server/root_password_again select "$mysql_root_password" | debconf-set-selections
-	sudo apt-get install -y mysql-server-5.5 
-	sudo apt-get install -y php5-mysqlnd
-	
-	# ------- UTILS  -------
-	
-	# ffmpeg
-	sudo apt-get install -y libav-tools
-	# imagemagick
-	sudo apt-get install -y imagemagick php5-imagick
-fi
+# update everything
+sudo apt-get update 
+
+# ------- PPA's -------
+
+# utility to be able to use apt-add-repository
+sudo apt-get install -y python-software-properties
+# add ppa's
+sudo apt-add-repository -y ppa:ondrej/apache2
+sudo add-apt-repository -y ppa:ondrej/php5
+# update list with new ppa's
+sudo apt-get update
+
+
+# ------- Apache2 -------
+
+sudo apt-get install -y apache2-mpm-worker
+
+# ------- PHP5 -------
+
+sudo apt-get install -y php5-common libapache2-mod-fastcgi php5-fpm php5-apcu php5-gd php5-mcrypt 
+sudo apt-get install -y curl php5-curl  
+sudo apt-get install -y memcached php5-memcache
+
+
+# ------- MySQL -------
+
+echo mysql-server mysql-server/root_password select "$mysql_root_password" | debconf-set-selections
+echo mysql-server mysql-server/root_password_again select "$mysql_root_password" | debconf-set-selections
+sudo apt-get install -y mysql-server-5.5 
+sudo apt-get install -y php5-mysqlnd
+
+# ------- UTILS  -------
+
+# ffmpeg
+sudo apt-get install -y libav-tools
+# imagemagick
+sudo apt-get install -y imagemagick php5-imagick
 
 
 # ==================== SERVER CONFIGURATION =========================
@@ -94,7 +92,7 @@ VHOST=$(cat <<EOF
 	DocumentRoot "$folder/frontend/web"
 	ServerName $domain
 	ServerAlias www.$domain
-	<Directory />
+	<Directory "$folder/frontend/web">
 		Options All
 		AllowOverride All
 		Require all granted
@@ -105,7 +103,7 @@ VHOST=$(cat <<EOF
 <VirtualHost $domain:$admin_domain_port>
 	DocumentRoot "$folder/backend/web"
 	ServerName $admin_domain
-	<Directory />
+	<Directory "$folder/backend/web">
 		Options All
 		AllowOverride All
 		Require all granted
@@ -125,7 +123,7 @@ if ! grep -q "Listen $admin_domain_port" /etc/apache2/ports.conf; then
 	echo "Listen $admin_domain_port" >> /etc/apache2/ports.conf
 fi
 
-# server ports 
+# server name 
 if [ ! -f "/etc/apache2/conf-available/$domain.conf" ]; then 
 	echo "ServerName localhost" > "/etc/apache2/conf-available/$domain.conf"
 fi
@@ -137,6 +135,11 @@ VHOST=$(cat <<EOF
 	Action php5-fcgi /php5-fcgi
 	Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
 	FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -socket /var/run/php5-fpm.sock -pass-header Authorization
+	<Directory /usr/lib/cgi-bin/>
+		Options All
+		Require all granted
+        SetHandler php5-fcgi
+	</Directory>
 </Ifmodule>
 EOF
 )
@@ -183,6 +186,8 @@ if [ ! -d "$folder" ]; then
 	
 	## Yii cache config. Now uses memcache
 	sed -i "s/'class' => 'yii\caching\FileCache',/'class' => 'yii\caching\MemCache',/g" "$folder/common/config/main.php";
+else
+	composer update --prefer-dist
 fi
 
 ## Yii database config
