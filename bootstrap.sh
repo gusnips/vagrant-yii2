@@ -3,21 +3,21 @@
 # ==================== CONFIGURATION =========================
 
 # Domain to use
-domain="$1"
+domain=$([ -z "$1" ] && echo "openwings.dev" || echo "$1")
 # Port to use
-domain_port="$2"
+domain_port=$([ -z "$2" ] && echo "80" || echo "$2")
 # Domain to use in admin
-admin_domain="$3"
+admin_domain=$([ -z "$3" ] && echo "openwings.dev" || echo "$3")
 # Port to use in admin
-admin_domain_port="$4"
+admin_domain_port=$([ -z "$4" ] && echo "80" || echo "$4")
 # Mysql root password
-mysql_root_password="$5"
+mysql_root_password=$([ -z "$5" ] && echo 'p4s$w0rd' || echo "$5")
 # MySQL password
-mysql_username="$6"
+mysql_username=$([ -z "$6" ] && echo "openwings" || echo "$6")
 # MySQL password
-mysql_password="$7"
+mysql_password=$([ -z "$7" ] && echo 'p4s$w0rd' || echo "$7")
 # Database name 
-mysql_database="$8"
+mysql_database=$([ -z "$8" ] && echo "openwings" || echo "$8")
 
 # Ask everything we need to know to setup the box
 # If no stdin avaliable, we use the configuration parameters above
@@ -191,9 +191,9 @@ else
 fi
 
 ## Yii database config
-sed -i "s/mysql:host=localhost;dbname=yii2advanced/mysql:host=localhost;dbname=$mysql_database/g" "$folder/common/config/main-local.php";
-sed -i "s/'password' => '',/'password' => '$mysql_password',/g" "$folder/common/config/main-local.php";
-sed -i "s/'username' => 'root',/'username' => '$mysql_username',/g" "$folder/common/config/main-local.php";
+sudo sed -i -e "s/mysql:host=localhost;dbname=.*/mysql:host=localhost;dbname=$mysql_database/g" \
+ 		-e "s/'password' => '.*',/'password' => '$mysql_password',/" \
+		-e "s/'username' => '.*',/'username' => '$mysql_username',/" "$folder/common/config/main-local.php";
 
 
 # ==================== FINISH IT =========================
