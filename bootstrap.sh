@@ -73,9 +73,9 @@ sudo apt-get install -y php5-mysqlnd
 # ------- UTILS  -------
 
 # ffmpeg
-sudo apt-get install -y libav-tools
+# sudo apt-get install -y libav-tools ffmpeg
 # imagemagick
-sudo apt-get install -y imagemagick php5-imagick
+# sudo apt-get install -y imagemagick php5-imagick
 
 
 # ==================== SERVER CONFIGURATION =========================
