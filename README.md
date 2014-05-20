@@ -12,8 +12,6 @@ To install type:
 + php 5.5 fpm  
 + mysql 5.5  
 + composer  
-+ ffmpeg  
-+ imagemagick & php extension  
 + curl & php extension  
 + memcached & php extension memcache  
 
