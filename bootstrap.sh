@@ -191,7 +191,7 @@ else
 fi
 
 ## Yii database config
-sudo sed -i -e "s/mysql:host=localhost;dbname=.*/mysql:host=localhost;dbname=$mysql_database/g" \
+sudo sed -i -e "s/mysql:host=localhost;dbname=.*',/mysql:host=localhost;dbname=$mysql_database',/g" \
  		-e "s/'password' => '.*',/'password' => '$mysql_password',/" \
 		-e "s/'username' => '.*',/'username' => '$mysql_username',/" "$folder/common/config/main-local.php";
 
