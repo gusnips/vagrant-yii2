@@ -1,56 +1,76 @@
+# Yii2 application vagrant box
 
-# Yii2 advanced application vagrant box
-  
-## Dependencies
-[Vagrant](http://www.vagrantup.com/)  
-Vagrant plugin [host-manager](https://github.com/smdahlen/vagrant-hostmanager )  
-To install type:  
-> vagrant plugin install vagrant-hostmanager  
-
-## Stack  
-+ apache 2.4 mpm worker with fastcgi  
-+ php 5.5 fpm  
-+ mysql 5.5  
-+ composer  
-+ curl & php extension  
-+ memcached & php extension memcache  
-
-## What it does
-+ creates a new mysql database and allow external access   
-+ install yii2 advanced template. Replace default database values with configuration ones and change to use memcache as cache  
-+ configure apache hostname for frontend and backend applications   
+## Stack
++ `ubuntu 12.04 32bits (precise32)`
++ `apache 2.4 mpm worker with fastcgi`
++ `php 5.5 fpm`
++ `mysql 5.5`
++ `curl & curl-php extension`
++ `memcached & memcache-php extension`
++ `composer`
++ `yii2 basic or advanced application`
 
 ## How to use
 
-edit [Vagrantfile](https://github.com/gusnips/vagrant-yii2/blob/master/Vagrantfile) to change the [options](#options)   
+clone and init the vagrant box (you need [Vagrant](http://www.vagrantup.com/) installed first)
 
-to create a new application run   
->/var/www/bootstap.sh  
+```shell
+$ git clone git@github.com:gusnips/vagrant-yii2.git
+$ cd vagrant-yii2
+$ vagrant up
+```
 
-and it will prompt to configure   
+ssh into the new box and create a new application
 
-## Options
+```shell
+$ vagrant ssh
+#Basic or advanced template? /var/www/bootstrap-basic.sh
+$ sudo /var/www/bootstrap-advanced.sh
+```
 
-Domain to use  
->domain="openwings.dev"   
+Add the domain of your new app to your [hosts file](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/)
+```
+echo '33.33.33.34 yii2app.dev admin.yii2app.dev' | sudo tee -a /etc/hosts
+#it will add this line to /etc/hosts
+#33.33.33.34 yii2app.dev admin.yii2app.dev
+```
 
-Port to use  
->domain_port="80"  
+use above whatever domain you wanted and the box ip in your [Vagrantfile](https://github.com/gusnips/vagrant-yii2/blob/master/Vagrantfile)
 
-Domain to use in admin  
->admin_domain="openwings.dev"  
+Now access [www.yii2app.dev](www.yii2app.dev) and rock'n roll
 
-Port to use in admin  
->admin_domain_port="2013"  
+## What it does
 
-MySQL root password  
-> mysql_root_password="p4s$w0rd"  
++ it run composer to create a new app using yii2 advanced or basic template
++ creates a new mysql database and user for the new app
++ change default database values to use the new ones
++ change application cache to memcache
++ add a new apache hostname for frontend and backend applications
 
-MySQL password
->mysql_username="openwings"   
+## Default Options
 
-MySQL password
->mysql_password="p4s$w0rd"  
+Default box options. edit [Vagrantfile](https://github.com/gusnips/vagrant-yii2/blob/master/Vagrantfile) to change it
 
-Database name  
->mysql_database="openwings"  
+- `domains= ["yii2app.dev", "www.yii2app.dev","admin.yii2app.dev"]` Vagrant box hostname
+- `ip= "33.33.33.34"` Vagrant box IP
+- `mysql_root_password="vagrant"` Set mysql root password on installation
+
+Default application options. Edit [bootstap-advanced.sh](https://github.com/gusnips/vagrant-yii2/blob/master/bootstap-advanced.sh) to change it
+
+- `mysql_root_password="vagrant"` MySQL root password. The one you choose during installation.
+- `domain="yii2app.dev"` Domain to use.
+- `domain_port="80"` Port to use.
+- `admin_domain="admin.yii2app.dev"` Domain to use in admin. Advanced app only.
+- `admin_domain_port="80"` Port to use in admin. Advanced app only.
+- `mysql_database="yii2app"` New database name.
+- `mysql_username="yii2app"` MySQL username.
+- `mysql_password="n3wp4ss"` MySQL password.
+
+optionally you can run the command passing the parameters
+```shell
+sudo /var/www/bootstap-basic.sh myp4ss mydomain.dev 80 appdb dbuser newp4ss
+```
+or for advanced template (in this order)
+```shell
+sudo /var/www/bootstap-advanced.sh myp4ss mydomain.dev 80 admin.mydomain.dev 80 appdb dbuser newp4ss
+```
