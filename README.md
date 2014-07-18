@@ -74,3 +74,10 @@ or for advanced template (in this order)
 ```shell
 sudo /var/www/bootstap-advanced.sh myp4ss mydomain.dev 80 admin.mydomain.dev 80 appdb dbuser newp4ss
 ```
+
+
+### Remove a site
+
+```shell
+sudo /var/www/remove-site.sh sitedomain.dev
+```
