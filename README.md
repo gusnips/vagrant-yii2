@@ -76,8 +76,13 @@ sudo /var/www/bootstap-advanced.sh myp4ss mydomain.dev 80 admin.mydomain.dev 80 
 ```
 
 
-### Remove a site
+## Remove a site
+
+To completely remove a site run
 
 ```shell
 sudo /var/www/remove-site.sh sitedomain.dev
 ```
+It will undo everything bootstrap-advanced.sh and bootstrap-basic.sh did
+
+**Use with caution*
