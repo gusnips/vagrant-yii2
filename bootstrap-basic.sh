@@ -99,8 +99,12 @@ sudo service apache2 reload
 # install migrations
 sudo php $folder/yii migrate up --interactive=0
 
-echo "";
-echo "All Done!"
+ip='33.33.33.34'
+echo ''
+echo 'All Done!'
+echo '' 
 echo "Now add the ip/domain to your hosts file if you didn't already. A little help:"
-echo "echo '33.33.33.34 $domain www.$domain' | sudo tee -a /etc/hosts"
-echo "Now go to your new site http://$domain and Rock'n roll"
+echo "echo '$ip $domain www.$domain $admin_domain' | sudo tee -a /etc/hosts"
+echo ''
+echo "Access your new site: http://$domain"
+echo "Rock'n roll"

@@ -3,8 +3,13 @@
 # ==================== CONFIGURATION =========================
 # Mysql root password
 mysql_root_password=$([ -z "$1" ] && echo 'vagrant' || echo "$1")
+ip=$([ -z "$2" ] && echo '127.0.0.1' || echo "$2")
+domain=$([ -z "$3" ] && echo 'localhost' || echo "$3")
+
 if [ -t 0 ]; then
 	read -e -p "MySQL root password: " -i "$mysql_root_password" mysql_root_password
+	read -e -p "IP: " -i "$ip" ip
+	read -e -p "Domain: " -i "$domain" domain
 fi
 
 # ==================== INSTALLATION =========================
@@ -97,7 +102,7 @@ sudo a2enmod rewrite actions fastcgi alias
 
 # default conf adds server name
 if [ ! -f /etc/apache2/conf-available/default.conf ]; then
-	echo "ServerName localhost" > /etc/apache2/conf-available/default.conf
+	echo "ServerName $domain" > /etc/apache2/conf-available/default.conf
 fi
 sudo a2enconf default
 
@@ -128,13 +133,16 @@ sudo service mysql restart
 sudo service php5-fpm restart
 
 
-if [ -z "$1" ]; then
-	echo 'Done! Here is a link to your new server http://$1'
+echo 'Done! This is a link to your new server: http://$domain'
+echo ''
+echo 'You may now enter your new box:'
+if [ -z "$3 ]; then
+	echo 'docker run -it -v \$(pwd):/var/www -p $ip:80:80 /bin/bash'
 else
-	echo 'Done!'
+	echo 'vagrant ssh'
 fi
-
-echo 'You may now enter your new box and add new application:
-vagrant ssh
-sudo /var/www/bootstrap-advanced.sh
-'
+echo ''
+echo 'And create a new application: '
+echo 'sudo /var/www/bootstrap-advanced.sh'
+echo 'or'
+echo 'sudo /var/www/bootstrap-basic.sh'
