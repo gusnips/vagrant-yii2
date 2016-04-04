@@ -42,6 +42,7 @@ folder="/var/www/$domain"
 
 # download project
 if [ ! -d "$folder" ]; then
+    sudo composer global require "fxp/composer-asset-plugin:~1.1.1"
     sudo composer create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced "$folder"
     # init project
     php $folder/init --env=Development --overwrite=n
