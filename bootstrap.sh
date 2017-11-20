@@ -136,7 +136,7 @@ sudo service php5-fpm restart
 echo 'Done! This is a link to your new server: http://$domain'
 echo ''
 echo 'You may now enter your new box:'
-if [ -z "$3 ]; then
+if [ -z "$3" ]; then
 	echo 'docker run -it -v \$(pwd):/var/www -p $ip:80:80 /bin/bash'
 else
 	echo 'vagrant ssh'
